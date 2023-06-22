@@ -129,10 +129,10 @@ int main(int argc, char const *argv[]) {
             return -1;
         }
     }
-    printf("**** Comparador de Algoritmos de Ordenação, %d posições. ****\n\n", (int) atoi(argv[1]));
+    printf("\n\n**** Comparador de Algoritmos de Ordenação, %ld posições. ****\n\n", (unsigned long int) atoi(argv[1]));
     
     srand((unsigned)time(NULL));
-    unsigned long int vectorSize = (int) atoi(argv[1]);
+    unsigned long int vectorSize = (unsigned long int) atoi(argv[1]);
     unsigned long int  rangeRand = RAND_MAX;
     ExecutorRecursiveSorts merge = &mergeSort;
     ExecutorRecursiveSorts quick = &quickSort;

@@ -6,26 +6,25 @@
 #include <time.h>
 #include <stdio.h>
 
-void bubbleSort(int *vet, int sizeVet);
-void insertionSort(int *vetor, int tamanhoVetor);
-void selectionSort(int *vetor, int tamanhoVetor);
-void mergeSort(int *vector, int start, int end);
-void merge(int *vector, int start, int half, int end);
-void quickSort(int *vector, int start, int end);
-int partition(int *vector, int start, int end);
-int binarySearch(int *vet, int wanted, int arraySize, int *pTIter) ;
-int sequenceSearch(int *vet, int wanted, int arraySize, int *pTIter);
-int recursiveBinarySearch(
+void bubbleSort(int *vet, unsigned long int  sizeVet);
+void insertionSort(int *vetor, unsigned long int  tamanhoVetor);
+void selectionSort(int *vetor, unsigned long int  tamanhoVetor);
+void mergeSort(int *vector, unsigned long int  start, unsigned long int end);
+void merge(int *vector, unsigned long int start, unsigned long int half, unsigned long int end);
+void quickSort(int *vector, unsigned long int start, unsigned long int end);
+unsigned long int binarySearch(int *vet, int wanted, unsigned long int arraySize, unsigned long int *pTIter) ;
+unsigned long int sequenceSearch(int *vet, int wanted, unsigned long int arraySize, unsigned long int *pTIter);
+unsigned long int recursiveBinarySearch(
     int *vector,
-    int start,
-    int end,
+    unsigned long int start,
+    unsigned long intend,
     int seekNumber
 );
 
-void bubbleSort(int *vet, int sizeVet) {
-    int sum = 0;
+void bubbleSort(int *vet, unsigned long int sizeVet) {
     int aux;
-    int i, j, betterCondiction = 1;
+    unsigned long int sum = 0;
+    unsigned long int i, j, betterCondiction = 1;
     for (i = 0; i < sizeVet; i++) {
         sum++;
         for (j = 0; j < sizeVet - betterCondiction; j++) {
@@ -38,14 +37,15 @@ void bubbleSort(int *vet, int sizeVet) {
         }
         betterCondiction++;
     }
-    printf("\nO número de iterções dos laços foram: %d\n", sum);
+    printf("\nO número de iterções dos laços foram: %ld\n", sum);
 }
 
-void insertionSort(int *vector, int sizeVector){
-    int sum = 0;
-    int i, j, key;
-    int zero = 0;
-    int one = 1;
+void insertionSort(int *vector, unsigned long int sizeVector){
+    int key;
+    unsigned long int sum = 0;
+    unsigned long int i, j;
+    unsigned long int zero = 0;
+    unsigned long int one = 1;
     for ( j = one; j < sizeVector; j++){
         sum += one;
         key = vector[j];
@@ -57,12 +57,13 @@ void insertionSort(int *vector, int sizeVector){
         }
         vector[i + one] = key;
     }
-    printf("\nO número de iterções dos laços foram: %d\n", sum);
+    printf("\nO número de iterções dos laços foram: %ld\n", sum);
 }
 
-void selectionSort(int *vetor, int tamanhoVetor) {
-    int sum = 0;
-    int i,j,aux, minimo, posMinimo;
+void selectionSort(int *vetor, unsigned long int tamanhoVetor) {
+    int aux, minimo;
+    unsigned long int sum = 0;
+    unsigned long int i, j, posMinimo;
     for (i = 0; i < tamanhoVetor - 1; i++) {
         sum += 1;
         minimo = *(vetor + i);
@@ -80,11 +81,11 @@ void selectionSort(int *vetor, int tamanhoVetor) {
             *(vetor + i) = aux;
         }
     }
-    printf("\nO número de iterções dos laços foram: %d\n", sum);
+    printf("\nO número de iterções dos laços foram: %ld\n", sum);
 }
 
-void mergeSort(int *vector, int start, int end) {
-    int half;
+void mergeSort(int *vector, unsigned long int start, unsigned long int end) {
+    unsigned long int half;
     if (start < end) {
         half = floor((start + end)) / 2;
         mergeSort(vector, start, half);
@@ -93,9 +94,11 @@ void mergeSort(int *vector, int start, int end) {
     }
 }
 
-void merge(int *vector, int start, int half, int end) {
-    int *tempVet, p1, p2, sizeTempVet, iLoop, jLoop, kLoop;
-    int end1 = 0, end2 = 0;
+void merge(int *vector, unsigned long int  start, unsigned long int  half, unsigned long int  end) {
+    
+    int *tempVet;
+    unsigned long int p1, p2, sizeTempVet, iLoop, jLoop, kLoop;
+    unsigned long int  end1 = 0, end2 = 0;
     sizeTempVet = end - start;
     p1 = start;
     p2 = half + 1;
@@ -132,15 +135,15 @@ void merge(int *vector, int start, int half, int end) {
     }
 }
 
-void quickSort(int *vector, int start, int end) {
-    int t;
+void quickSort(int *vector, unsigned long int start, unsigned long int end) {
+    int aux;
     if (start < end) {
-        int randomIndexPivot = (rand() % (end - start)) + start;
+        unsigned long int randomIndexPivot = (rand() % (end - start)) + start;
         int pivot = vector[randomIndexPivot];
         vector[randomIndexPivot] = vector[end];
         vector[end] = pivot;
-        int i = start - 1;
-        int j = end;
+        unsigned long int i = start - 1;
+        unsigned long int j = end;
         do {
             do {
                 i++;
@@ -149,9 +152,9 @@ void quickSort(int *vector, int start, int end) {
                 j --;
             } while ((vector[j] > pivot) && (j > start));
             if (i < j){
-                t = vector[i];
+                aux = vector[i];
                 vector[i] = vector[j];
-                vector[j] = t;
+                vector[j] = aux;
             }
         } while (i < j);
         vector[end] = vector[i];
@@ -161,9 +164,10 @@ void quickSort(int *vector, int start, int end) {
     }
 }
 
-int binarySearch(int *vet, int wanted, int arraySize, int *pTIter) {
+unsigned long int binarySearch(int *vet, int wanted, unsigned long int arraySize, unsigned long int *pTIter) {
     *pTIter = 0;
-    int low = 0, high = 0, kick = 0, half = 0;
+    int kick = 0;
+    unsigned long int low = 0, high = 0, half = 0;
     high = arraySize - 1;
     while (low <= high){
         *pTIter = *pTIter + 1;
@@ -182,9 +186,9 @@ int binarySearch(int *vet, int wanted, int arraySize, int *pTIter) {
     return -1;
 }
 
-int sequenceSearch(int *vet, int wanted, int arraySize, int *pTIter){
+unsigned long int sequenceSearch(int *vet, int wanted, unsigned long int arraySize, unsigned long int *pTIter){
     *pTIter = 0;
-    for (int i = 0; i < arraySize; i++) {
+    for (unsigned long int i = 0; i < arraySize; i++) {
         if (wanted == vet[i]) {
             return i;
         }
@@ -193,13 +197,8 @@ int sequenceSearch(int *vet, int wanted, int arraySize, int *pTIter){
     return -1;
 }
 
-int recursiveBinarySearch(
-    int *vector,
-    int start,
-    int end,
-    int seekNumber
-) {
-    int indexFind;
+unsigned long int recursiveBinarySearch(int *vector, unsigned long int start, unsigned long int end, int seekNumber) {
+    unsigned long int indexFind;
     if (start > end)
         return -1;
     else {

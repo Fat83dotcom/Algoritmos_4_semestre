@@ -10,8 +10,8 @@ class Node:
         self.nSunspot = nSunspot
 
     def __repr__(self) -> str:
-        n = f'{self.key and self.left}<-{self.key}->{self.key and self.right}'
-        return n
+        data = f'{self.day}/{self.month}/{self.year} -> Spots: {self.nSunspot}'
+        return data
 
 
 class Avl:
@@ -23,12 +23,12 @@ class Avl:
             self.root = Node(key, day, month, year, nSunspot)
         else:
             self.root = self._insertNode(
-                self.root, key, key, day, month, year, nSunspot
+                self.root, key, day, month, year, nSunspot
             )
 
     def _insertNode(self, node: Node, key, day, month, year, nSunspot) -> Node:
         if not node:
-            return Node(key=key)
+            return Node(key, day, month, year, nSunspot)
         elif key < node.key:
             node.left = self._insertNode(
                 node.left, key, day, month, year, nSunspot
@@ -80,7 +80,7 @@ class Avl:
         )
         return nodeY
 
-    def rotationLeft(self, nodeZ: Node) -> Node:
+    def _rotationLeft(self, nodeZ: Node) -> Node:
         nodeY: Node = nodeZ.right
         nodeT2: Node = nodeY.left
 
@@ -95,6 +95,26 @@ class Avl:
         )
         return nodeY
 
+    def inorder(self):
+        if self.root is None:
+            return
+
+        stack = []
+        current = self.root
+
+        while True:
+            if current is not None:
+                stack.append(current)
+                current = current.left
+
+            elif stack:
+                current = stack.pop()
+                print(current)
+                current = current.right
+
+            else:
+                break
+
 
 class ExecuteMain:
     def __init__(self, path: str) -> None:
@@ -102,8 +122,18 @@ class ExecuteMain:
 
     def run(self) -> None:
         try:
+            dataTree = Avl()
             with open(self.path, 'r', encoding='utf-8') as file:
-                pass
+                for n, x in enumerate(file.readlines()):
+                    if int(x[21:24]) >= 0:
+                        dataTree.insert(
+                            n,
+                            year=int(x[:4].strip()),
+                            month=int(x[5:8].strip()),
+                            day=int(x[8:10].strip()),
+                            nSunspot=int(x[21:24].strip())
+                        )
+            dataTree.inorder()
         except Exception as e:
             print(e)
 

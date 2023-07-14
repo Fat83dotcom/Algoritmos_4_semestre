@@ -16,14 +16,14 @@ class Node:
 
 class Avl:
     def __init__(self) -> None:
-        self.root = None
+        self.__root = None
 
     def insert(self, key, day, month, year, nSunspot):
-        if not self.root:
-            self.root = Node(key, day, month, year, nSunspot)
+        if not self.__root:
+            self.__root = Node(key, day, month, year, nSunspot)
         else:
-            self.root = self._insertNode(
-                self.root, key, day, month, year, nSunspot
+            self.__root = self._insertNode(
+                self.__root, key, day, month, year, nSunspot
             )
 
     def _insertNode(self, node: Node, key, day, month, year, nSunspot) -> Node:
@@ -37,6 +37,7 @@ class Avl:
             node.right = self._insertNode(
                 node.right, key, day, month, year, nSunspot
             )
+
         node.height = 1 + max(
             self._height(node.left), self._height(node.right)
         )
@@ -96,11 +97,11 @@ class Avl:
         return nodeY
 
     def inorder(self):
-        if self.root is None:
+        if self.__root is None:
             return
 
-        stack = []
-        current = self.root
+        stack: list = []
+        current: Node = self.__root
 
         while True:
             if current is not None:

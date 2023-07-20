@@ -10,11 +10,12 @@ class ExecuteMain:
             print('Carregando árvore de busca binária...')
             dataTree = Avl()
             with open(self.path, 'r', encoding='utf-8') as file:
-                for n, x in enumerate(file.readlines()):
+                for x in file.readlines():
                     if int(x[21:24]) >= 0:
                         year: int = int(x[:4].strip())
                         month: int = int(x[5:8].strip())
                         day: int = int(x[8:10].strip())
+                        n = (year, month, day)
                         dataTree.insert(
                             n,
                             year=year,
@@ -58,10 +59,14 @@ class ExecuteMain:
                         raise e
                 if int(op) == 4:
                     try:
-                        key = input('Digite um número inteiro: ')
+                        keyY = input('Digite um ano no formato(aaaa): ')
+                        keyM = input('Digite um mês no formato(mm): ')
+                        keyD = input('Digite um dia no formato(dd): ')
                         print(
                             dataTree.searchRecursiveKey(
-                                dataTree.node, int(key)
+                                dataTree.node, (
+                                    int(keyY), int(keyM), int(keyD)
+                                )
                             )
                         )
                     except Exception as e:
@@ -78,9 +83,17 @@ class ExecuteMain:
                         raise e
                 if int(op) == 7:
                     try:
-                        init = input('Digite um número inteiro/Início: ')
-                        end = input('Digite um número inteiro/Final: ')
-                        for i in range(int(init), int(end)):
+                        print('Digite os valores do início...')
+                        keyYI = input('Digite um ano no formato(aaaa): ')
+                        keyMI = input('Digite um mês no formato(mm): ')
+                        keyDI = input('Digite um dia no formato(dd): ')
+                        init = (int(keyYI), int(keyMI), int(keyDI))
+                        print('Digite os valores do término...')
+                        keyYE = input('Digite um ano no formato(aaaa): ')
+                        keyME = input('Digite um mês no formato(mm): ')
+                        keyDE = input('Digite um dia no formato(dd): ')
+                        end = (int(keyYE), int(keyME), int(keyDE))
+                        for i in range(tuple(init), tuple(end)):
                             print(dataTree.searchKey(i))
 
                     except Exception as e:

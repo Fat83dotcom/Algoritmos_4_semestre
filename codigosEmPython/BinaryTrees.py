@@ -175,3 +175,12 @@ class Avl:
         return currentNode
 
     # def sucessor(self)
+
+
+if __name__ == '__main__':
+    keys = [4, 12, 20, 2, 5, 7, 18, 13]
+
+    n = Avl()
+
+    for i in keys:
+        n.insert(i, 2, 2, 2, 2)

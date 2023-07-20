@@ -71,30 +71,30 @@ class Avl:
             return 0
         return self._height(node.left) - self._height(node.right)
 
-    def _rotationRight(self, nodeZ: Node) -> Node:
-        nodeY: Node = nodeZ.left
-        nodeT3: Node = nodeY.right
+    def _rotationRight(self, nodeX: Node) -> Node:
+        nodeY: Node = nodeX.left
+        nodeZ: Node = nodeY.right
 
-        nodeY.right = nodeZ
-        nodeZ.left = nodeT3
+        nodeY.right = nodeX
+        nodeX.left = nodeZ
 
-        nodeZ.height = 1 + max(
-            self._height(nodeZ.left), self._height(nodeZ.right)
+        nodeX.height = 1 + max(
+            self._height(nodeX.left), self._height(nodeX.right)
         )
         nodeY.height = 1 + max(
             self._height(nodeY.left), self._height(nodeY.right)
         )
         return nodeY
 
-    def _rotationLeft(self, nodeZ: Node) -> Node:
-        nodeY: Node = nodeZ.right
-        nodeT2: Node = nodeY.left
+    def _rotationLeft(self, nodeX: Node) -> Node:
+        nodeY: Node = nodeX.right
+        nodeZ: Node = nodeY.left
 
-        nodeY.left = nodeZ
-        nodeZ.right = nodeT2
+        nodeY.left = nodeX
+        nodeX.right = nodeZ
 
-        nodeZ.height = 1 + max(
-            self._height(nodeZ.left), self._height(nodeZ.right)
+        nodeX.height = 1 + max(
+            self._height(nodeX.left), self._height(nodeX.right)
         )
         nodeY.height = 1 + max(
             self._height(nodeY.left), self._height(nodeY.right)

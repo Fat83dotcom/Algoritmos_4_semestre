@@ -154,7 +154,7 @@ class Avl:
             print(node)
             self.inorderRecursive(node.right)
 
-    def searchRecursiveKey(self, node: Node, key: int) -> None:
+    def searchRecursiveKey(self, node: Node, key: tuple) -> None:
         if node.key == key or node is None:
             return node
         elif key < node.key:

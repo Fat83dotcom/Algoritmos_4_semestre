@@ -23,11 +23,12 @@ class Tools:
 class ExecuteMain:
     def __init__(self, path: str) -> None:
         self.path = path
+        self.tools = Tools()
+        self.dataTree = Avl()
 
     def run(self) -> None:
         try:
             print('Carregando árvore de busca binária...')
-            dataTree = Avl()
             with open(self.path, 'r', encoding='utf-8') as file:
                 for x in file.readlines():
                     if int(x[21:24]) >= 0:
@@ -63,17 +64,17 @@ class ExecuteMain:
                 op = input('Digite uma opção: ')
                 if int(op) == 1:
                     try:
-                        dataTree.inorderItertive()
+                        self.dataTree.inorderItertive()
                     except Exception as e:
                         raise e
                 if int(op) == 2:
                     try:
-                        dataTree.preorderIterative()
+                        self.dataTree.preorderIterative()
                     except Exception as e:
                         raise e
                 if int(op) == 3:
                     try:
-                        dataTree.inorderRecursive(dataTree.node)
+                        self.dataTree.inorderRecursive(self.dataTree.node)
                     except Exception as e:
                         raise e
                 if int(op) == 4:
@@ -82,8 +83,8 @@ class ExecuteMain:
                         keyM = input('Digite um mês no formato(mm): ')
                         keyD = input('Digite um dia no formato(dd): ')
                         print(
-                            dataTree.searchRecursiveKey(
-                                dataTree.node, (
+                            self.dataTree.searchRecursiveKey(
+                                self.dataTree.node, (
                                     int(keyY), int(keyM), int(keyD)
                                 )
                             )
@@ -92,29 +93,25 @@ class ExecuteMain:
                         raise e
                 if int(op) == 5:
                     try:
-                        print(dataTree.minimum())
+                        print(self.dataTree.minimum())
                     except Exception as e:
                         raise e
                 if int(op) == 6:
                     try:
-                        print(dataTree.maximum())
+                        print(self.dataTree.maximum())
                     except Exception as e:
                         raise e
                 if int(op) == 7:
                     try:
                         print('Digite os valores do início...')
-                        keyYI = input('Digite um ano no formato(aaaa): ')
-                        keyMI = input('Digite um mês no formato(mm): ')
-                        keyDI = input('Digite um dia no formato(dd): ')
-                        init = (int(keyYI), int(keyMI), int(keyDI))
+                        keyIni = input('Digite um ano no formato(aaaa): ')
                         print('Digite os valores do término...')
-                        keyYE = input('Digite um ano no formato(aaaa): ')
-                        keyME = input('Digite um mês no formato(mm): ')
-                        keyDE = input('Digite um dia no formato(dd): ')
-                        end = (int(keyYE), int(keyME), int(keyDE))
-                        for i in range(tuple(init), tuple(end)):
-                            print(dataTree.searchKey(i))
-
+                        keyYEnd = input('Digite um ano no formato(aaaa): ')
+                        dates = self.tools.tupleDateFactory(
+                            int(keyIni), int(keyYEnd)
+                        )
+                        for tupleDates in dates:
+                            print(self.dataTree.searchKey(tupleDates))
                     except Exception as e:
                         raise e
                 if int(op) == 0:

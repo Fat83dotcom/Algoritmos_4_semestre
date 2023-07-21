@@ -1,6 +1,25 @@
 from BinaryTrees import Avl
 
 
+class Tools:
+    def tupleDateFactory(self, startYear: int, endYear: int) -> list:
+        tupleData = []
+        for year in range(startYear, endYear + 1):
+            for month in range(1, 13):  # Mês varia de 1 a 12
+                if month == 4 or month == 6 or month == 9 or month == 11:
+                    daysOfMonths = 30
+                elif month == 2:
+                    if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
+                        daysOfMonths = 29
+                    else:
+                        daysOfMonths = 28
+                else:
+                    daysOfMonths = 31
+                for day in range(1, daysOfMonths + 1):
+                    tupleData.append((year, month, day))
+        return tupleData
+
+
 class ExecuteMain:
     def __init__(self, path: str) -> None:
         self.path = path

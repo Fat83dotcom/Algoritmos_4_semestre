@@ -1,21 +1,20 @@
+from datetime import datetime
 import sys
 sys.setrecursionlimit(10**6)
 
 
 class Node:
-    def __init__(self, key, day, month, year, nSunspot) -> None:
+    def __init__(self, key, nSunspot) -> None:
         self.key = key
         self.left = None
         self.right = None
         self.height = 1
-        self.day = day
-        self.month = month
-        self.year = year
         self.nSunspot = nSunspot
 
     def __repr__(self) -> str:
+        date = datetime(self.key[0], self.key[1], self.key[2]).strftime('%d/%m/%Y')
         data = f'Key: {self.key} --- '\
-            f'{self.day}/{self.month}/{self.year} -> Spots: {self.nSunspot}'
+            f'{date} -> Spots: {self.nSunspot}'
         return data
 
 

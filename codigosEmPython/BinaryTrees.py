@@ -22,24 +22,24 @@ class Avl:
     def __init__(self) -> None:
         self.node = None
 
-    def insert(self, key, day, month, year, nSunspot):
+    def insert(self, key, nSunspot):
         if not self.node:
-            self.node = Node(key, day, month, year, nSunspot)
+            self.node = Node(key, nSunspot)
         else:
             self.node = self._insertNode(
-                self.node, key, day, month, year, nSunspot
+                self.node, key, nSunspot
             )
 
-    def _insertNode(self, node: Node, key, day, month, year, nSunspot) -> Node:
+    def _insertNode(self, node: Node, key, nSunspot) -> Node:
         if not node:
-            return Node(key, day, month, year, nSunspot)
+            return Node(key, nSunspot)
         elif key < node.key:
             node.left = self._insertNode(
-                node.left, key, day, month, year, nSunspot
+                node.left, key, nSunspot
             )
         else:
             node.right = self._insertNode(
-                node.right, key, day, month, year, nSunspot
+                node.right, key, nSunspot
             )
 
         node.height = 1 + max(

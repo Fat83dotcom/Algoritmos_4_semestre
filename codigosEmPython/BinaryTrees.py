@@ -147,6 +147,17 @@ class Avl:
             else:
                 currentNode = currentNode.right
 
+    def modfierSearchKey(self, keyYear: int) -> Node | None:
+        currentNode = self.node
+
+        while currentNode is not None:
+            if keyYear == currentNode.key[0]:
+                return currentNode
+            elif keyYear < currentNode.key[0]:
+                currentNode = currentNode.left
+            else:
+                currentNode = currentNode.right
+
     def inorderRecursive(self, node: Node) -> None:
         if node is not None:
             self.inorderRecursive(node.left)

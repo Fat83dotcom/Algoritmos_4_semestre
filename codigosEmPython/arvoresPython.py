@@ -36,11 +36,8 @@ class ExecuteMain:
                         month: int = int(x[5:8].strip())
                         day: int = int(x[8:10].strip())
                         n = (year, month, day)
-                        dataTree.insert(
+                        self.dataTree.insert(
                             n,
-                            year=year,
-                            month=month,
-                            day=day,
                             nSunspot=int(x[21:24].strip())
                         )
             print('\nCarregamento concluído !\n')
